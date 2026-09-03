@@ -8,7 +8,6 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 body {
   margin: 0;
   background: var(--paper);
@@ -224,8 +223,4 @@ h3 { margin-bottom: .45rem; font-size: 1.08rem; }
   .news-item, .publication-year { grid-template-columns: 1fr; gap: .4rem; }
   .page-hero { padding: 3rem 0 2rem; }
   .section { padding: 3rem 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { loadSettings } from "./lib/content";
+import { ScrollToTop } from "./scroll-to-top";
 import "./globals.css";
 
 export const dynamic = "force-dynamic";
@@ -46,7 +47,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ScrollToTop />
+        {children}
+      </body>
     </html>
   );
 }
