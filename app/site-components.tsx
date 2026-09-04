@@ -114,16 +114,18 @@ export function SiteFrame({ settings, demo, active, memberPage, children }: {
   children: ReactNode;
 }) {
   return (
-    <>
+    <div className="site-frame">
       <Header settings={settings} active={active} memberPage={memberPage} />
-      {demo ? (
-        <aside className="demo-banner" aria-label="Sample content notice">
-          <p>Sample content is shown. Upload the template to Google Sheets and set GOOGLE_SHEET_ID to use live content.</p>
-        </aside>
-      ) : null}
-      <main id="main-content" className="page-main">{children}</main>
-      <Footer settings={settings} />
-    </>
+      <div className="site-scroll">
+        {demo ? (
+          <aside className="demo-banner" aria-label="Sample content notice">
+            <p>Sample content is shown. Upload the template to Google Sheets and set GOOGLE_SHEET_ID to use live content.</p>
+          </aside>
+        ) : null}
+        <main id="main-content" className="page-main">{children}</main>
+        <Footer settings={settings} />
+      </div>
+    </div>
   );
 }
 

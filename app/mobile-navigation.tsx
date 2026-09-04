@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { ActivePage } from "./site-components";
 
 export function MobileNavigation({ active, memberPage, memberLinks }: {
@@ -11,31 +11,6 @@ export function MobileNavigation({ active, memberPage, memberLinks }: {
 }) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
-
-  useEffect(() => {
-    if (!open) return;
-
-    const scrollY = window.scrollY;
-    const { style } = document.body;
-    const previous = {
-      position: style.position,
-      top: style.top,
-      width: style.width,
-      overflow: style.overflow,
-    };
-
-    Object.assign(style, {
-      position: "fixed",
-      top: `-${scrollY}px`,
-      width: "100%",
-      overflow: "hidden",
-    });
-
-    return () => {
-      Object.assign(style, previous);
-      window.scrollTo(0, scrollY);
-    };
-  }, [open]);
 
   return (
     <div className="mobile-menu">

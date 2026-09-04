@@ -219,7 +219,6 @@ h3 { margin-bottom: .45rem; font-size: 1.08rem; }
     background: transparent;
     cursor: pointer;
     align-content: space-between;
-    touch-action: manipulation;
   }
   .menu-toggle span { height: 2px; border-radius: 1px; background: white; }
   .mobile-nav {
@@ -252,6 +251,21 @@ h3 { margin-bottom: .45rem; font-size: 1.08rem; }
   }
   .mobile-member-submenu a:hover, .mobile-member-submenu a:focus-visible,
   .mobile-member-submenu a.active { background: #163f62; }
+  .site-frame {
+    display: flex;
+    height: 100vh;
+    height: 100dvh;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .site-header { position: relative; flex: 0 0 auto; }
+  .site-scroll {
+    min-height: 0;
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
   .hero, .profile-hero, .research-item { grid-template-columns: 1fr; gap: 2rem; }
   .hero { padding: 3.5rem 0; }
   .hero-media, .profile-image { max-width: 320px; }
