@@ -19,7 +19,7 @@ export const sampleSettings: Settings = {
   contact_email: "lab@example.edu",
   address: "Research Building, Example University",
   footer_text: "Eusun Han's Lab",
-  research_heading: "Research with purpose",
+  research_heading: "Research",
   research_intro:
     "Our sample research program connects human-centered questions with reliable computational methods. Replace these topics with the lab's actual research areas.",
   publications_intro:

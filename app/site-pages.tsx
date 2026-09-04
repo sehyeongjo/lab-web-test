@@ -22,14 +22,10 @@ function EmptyState({ children }: { children: string }) {
   return <div className="empty-state">{children}</div>;
 }
 
-function PageHero({ title, intro }: {
-  title: string;
-  intro?: string;
-}) {
+function PageHero({ title }: { title: string }) {
   return (
     <div className="container page-hero">
       <h1>{title}</h1>
-      {intro ? <p className="page-intro">{intro}</p> : null}
     </div>
   );
 }
@@ -202,7 +198,7 @@ export async function StudentsPage() {
       active="members"
       memberPage="students"
     >
-      <PageHero title="Students" intro="Meet the researchers learning and building together in our lab." />
+      <PageHero title="Students" />
       <section className="section">
         <div className="container">
           {groups.length ? groups.map((group) => {
@@ -235,7 +231,7 @@ export async function AlumniPage() {
       active="members"
       memberPage="alumni"
     >
-      <PageHero title="Alumni" intro="Former members and the paths they have taken after the lab." />
+      <PageHero title="Alumni" />
       <section className="section">
         <div className="container">
           {alumni.length ? (
@@ -267,7 +263,7 @@ export async function ResearchPage() {
   const research = researchResult.data;
   return (
     <SiteFrame settings={settings} demo={settingsResult.demo || researchResult.demo} active="research">
-      <PageHero title={settings.research_heading || "Research"} intro={settings.research_intro} />
+      <PageHero title="Research" />
       <section className="section">
         <div className="container research-list">
           {research.length ? research.map((item, index) => (
@@ -318,7 +314,7 @@ export async function PublicationsPage() {
 
   return (
     <SiteFrame settings={settings} demo={settingsResult.demo || publicationsResult.demo} active="publications">
-      <PageHero title="Publications" intro={settings.publications_intro} />
+      <PageHero title="Publications" />
       <section className="section">
         <div className="container">
           {categories.length ? categories.map((category) => {
