@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { FallbackImage } from "./fallback-image";
 import type { Settings } from "./lib/types";
+import { MobileNavigation } from "./mobile-navigation";
 
 export type ActivePage = "home" | "members" | "research" | "publications";
 
@@ -79,6 +80,7 @@ function Header({ settings, active, memberPage }: {
             <Link className={`nav-link ${active === "research" ? "active" : ""}`} href="/research">Research</Link>
             <Link className={`nav-link ${active === "publications" ? "active" : ""}`} href="/publications">Publications</Link>
           </nav>
+          <MobileNavigation active={active} memberPage={memberPage} memberLinks={memberLinks} />
         </div>
       </header>
     </>

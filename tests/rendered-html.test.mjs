@@ -77,6 +77,7 @@ for (const [pathname, expected] of routes) {
     assert.ok(html.toLowerCase().includes(expected.toLowerCase()));
     assert.match(html, /Sample content is shown/);
     assert.match(html, /class="member-trigger"[^>]*>Members<\/button>/);
+    assert.match(html, /aria-controls="mobile-navigation"/);
     assert.doesNotMatch(html, /<details|<summary/i);
     assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
   });
