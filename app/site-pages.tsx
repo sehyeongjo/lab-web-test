@@ -175,7 +175,7 @@ function StudentCard({ student }: { student: Student }) {
       {student.secondary_name ? <p className="member-meta">{student.secondary_name}</p> : null}
       {student.status ? <p className="role">{student.status}</p> : null}
       {student.affiliation ? <p className="member-meta">{student.affiliation}</p> : null}
-      {student.research_topics ? <p className="member-meta">Research: {student.research_topics}</p> : null}
+      {student.research_topics ? <p className="member-meta">{student.research_topics}</p> : null}
       <ProfileLinks
         email={student.email}
         personal={student.personal_url}
