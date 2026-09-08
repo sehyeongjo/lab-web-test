@@ -6,16 +6,6 @@ import { MobileNavigation } from "./mobile-navigation";
 
 export type ActivePage = "home" | "members" | "research" | "publications";
 
-export function initials(name: string) {
-  const value = name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase())
-    .join("");
-  return value || "EH";
-}
-
 export function ExternalLink({ href, children, className }: {
   href: string;
   children: ReactNode;

@@ -13,7 +13,6 @@ import type { Publication, Student } from "./lib/types";
 import {
   ExternalLink,
   FallbackImage,
-  initials,
   Multiline,
   SiteFrame,
 } from "./site-components";
@@ -67,7 +66,6 @@ export async function HomePage() {
               <FallbackImage
                 src={settings.hero_image_url}
                 alt={`${settings.lab_name} representative image`}
-                fallback="EH"
                 className="content-image"
               />
             </div>
@@ -121,7 +119,6 @@ export async function ProfessorPage() {
         <FallbackImage
           src={professor.photo_url}
           alt={`${professor.name} portrait`}
-          fallback={initials(professor.name)}
           className="profile-image"
         />
         <div className="profile-copy">
@@ -168,7 +165,6 @@ function StudentCard({ student }: { student: Student }) {
       <FallbackImage
         src={student.photo_url}
         alt={`${student.name} portrait`}
-        fallback={initials(student.name)}
         className="member-image"
       />
       <h3>{student.name}</h3>
@@ -272,7 +268,6 @@ export async function ResearchPage() {
                 <FallbackImage
                   src={item.image_url}
                   alt={item.image_alt || `${item.title} research`}
-                  fallback={String(index + 1).padStart(2, "0")}
                   className="content-image"
                 />
               ) : null}
