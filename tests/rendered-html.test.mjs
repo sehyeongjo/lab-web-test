@@ -89,3 +89,26 @@ test("alumni renders without profile images", async () => {
   const html = await response.text();
   assert.doesNotMatch(html, /member-image|portrait/i);
 });
+
+test("professor publications render as a numbered citation list with inline bold and links", async () => {
+  const [professorHtml, labHtml] = await Promise.all(
+    ["/members/professor", "/publications"].map(async (pathname) => (await fetch(baseUrl + pathname)).text()),
+  );
+  const lists = [...professorHtml.matchAll(/<ol class="professor-publication-list" role="list">([\s\S]*?)<\/ol>/g)];
+  assert.equal(lists.length, 2);
+  assert.equal(lists.reduce((total, list) => total + [...list[1].matchAll(/<li\b/g)].length, 0), 2);
+  assert.match(professorHtml, /<div class="professor-publications">/);
+  assert.match(professorHtml, /class="professor-publication-group"><h3>International Conference<\/h3>/);
+  assert.match(professorHtml, /class="professor-publication-group"><h3>Journal<\/h3>/);
+  assert.match(lists[0][1], /<li><span><strong>Eusun Han<\/strong> and Sample Collaborators \(2026\)/);
+  assert.match(lists[0][1], /href="https:\/\/example.com" target="_blank" rel="noreferrer noopener">Paper<\/a>/);
+  assert.match(lists[1][1], /Example Professor Journal Article/);
+  assert.doesNotMatch(professorHtml, /class="publication-category"|class="publication-year"/);
+  assert.match(labHtml, /class="publication-category"/);
+  assert.match(labHtml, /class="publication-year"><h3>2026<\/h3>/);
+  assert.match(professorHtml, /<h2>Publication List<\/h2>/);
+  assert.match(professorHtml, /Example Professor Paper/);
+  assert.match(professorHtml, /<strong>Eusun Han<\/strong>/);
+  assert.doesNotMatch(professorHtml, /Example Paper: Replace This/);
+  assert.doesNotMatch(labHtml, /Example Professor Paper/);
+});

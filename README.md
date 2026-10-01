@@ -28,13 +28,21 @@ or https:// URLs.
 | News | month, content, link_label, link_url, visible |
 | Professor | name, secondary_name, photo_url, title, affiliation, email, personal_url, cv_url, scholar_url, bio, visible |
 | ProfessorDetails | section, display_order, content, subtext, link_label, link_url, visible |
+| ProfessorPublications | category, order, content, visible |
 | Students | group, display_order, name, secondary_name, photo_url, status, affiliation, email, personal_url, cv_url, scholar_url, research_topics, visible |
 | Alumni | display_order, name, secondary_name, photo_url, degree, period, current_position, personal_url, visible |
 | Research | display_order, title, summary, details, image_url, image_alt, link_label, link_url, visible |
 | Publications | category, year, display_order, venue, title, authors, paper_url, project_url, code_url, video_url, visible |
 
-Long text is plain text. Put each paragraph on a new line; HTML and Markdown are
-intentionally not rendered.
+Wrap words in `**double asterisks**` to display them in bold, for example
+`Our paper was accepted at **NeurIPS 2026**.` This works in displayed text,
+including news, profiles, research, publication authors, and link labels.
+Keep each bold phrase on one line. Put each paragraph on a new line; HTML and
+other Markdown formatting are not rendered. Excel font styling is not
+transferred to the website. Inline hyperlinks are additionally supported in
+all `ProfessorDetails` sections (`section`, `content`, and `subtext`) and in
+the professor's Publication List. Use `[link text](https://example.com)`;
+bold formatting can be combined with links.
 
 The Students group column accepts any text. Group sections appear in the order
 their names first occur in the sheet; display_order sorts members within each
@@ -43,6 +51,26 @@ group.
 Publication category sections also appear in the order their names first occur
 in the sheet. Publications within a category are sorted by year and then by
 display_order.
+
+Use `ProfessorPublications` for the professor's Publication List. Put one complete
+citation in each `content` cell, using `**author name**` for bold and
+`[DOI](https://doi.org/...)` for a hyperlink. Categories follow the order in which
+they first appear in visible, populated rows. `order` sorts citations within
+each category; blank order cells appear last, keeping their sheet order. Existing
+`display_order` headers also work. `visible=FALSE` hides a citation.
+
+The page shows category headings smaller than Publication List, with no internal
+divider lines. Numbering continues across categories. Numbers align with the
+Publication List heading's left edge; wrapped citation text keeps its indent.
+Existing sheets can also use their `title` column for the full citation; other
+publication fields are not used for this list.
+HTTP, HTTPS, and mailto links are supported; unsafe URLs are displayed as plain
+text. Keep each formatted phrase on one line.
+
+The professor page reads publication entries only from this tab; other profile
+sections remain in `ProfessorDetails`. Existing Publication List, Publications,
+or Selected Publications section names preserve the list's position on the
+professor page. With no such section, the list appears last.
 
 ## Deploy to Vercel
 

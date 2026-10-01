@@ -147,15 +147,6 @@ SHEETS = {
                 "",
                 True,
             ],
-            [
-                "Selected Publications",
-                1,
-                "Example Paper: A Clear Title for a Representative Publication",
-                "Sample Conference, 2026",
-                "Paper",
-                "https://example.com",
-                True,
-            ],
             ["Reviewer", 1, "Example conferences and journals", "Sample content", "", "", True],
             ["Awards", 1, "Example Research Award", "2025 · Sample content", "", "", True],
             ["Talks", 1, "Example invited talk", "Sep 2026 · Sample content", "", "", True],
@@ -350,10 +341,24 @@ SHEETS = {
 }
 
 
+SHEETS["ProfessorPublications"] = {
+    "headers": ["category", "order", "content", "visible"],
+    "rows": [
+        [
+            "International Conference", 1,
+            "**Eusun Han** and Sample Collaborators (2026). Example Professor Paper: Replace This with a Publication Title. Sample Conference. [Paper](https://example.com)",
+            True,
+        ],
+    ],
+    "widths": [28, 15, 110, 12],
+}
+
+
 HEADER_NOTES = {
     "group": "Type any group name. Website sections follow the order in which groups first appear in this sheet.",
     "visible": "FALSE hides this row from the website. Blank or TRUE displays it.",
     "display_order": "Smaller numbers appear first within the relevant group or section.",
+    "order": "Smaller numbers appear first within the publication category.",
     "month": "Enter a real date. The website displays it as Mon YYYY and sorts newest first.",
     "photo_url": "Public http:// or https:// image URL. Leave blank to use an initials placeholder.",
     "image_url": "Public http:// or https:// image URL. Leave blank to use a placeholder.",
@@ -445,7 +450,7 @@ def style_data_sheet(ws, headers: list[str], rows: list[list[object]], widths: l
         if header == "month":
             for cell in ws[column_letter][1:]:
                 cell.number_format = "mmm yyyy"
-        elif header in {"display_order", "year"}:
+        elif header in {"display_order", "order", "year"}:
             for cell in ws[column_letter][1:]:
                 cell.alignment = Alignment(horizontal="center", vertical="top")
         elif header == "visible":
@@ -468,9 +473,10 @@ def add_sheet_validations(ws, headers: list[str]) -> None:
             ),
         )
 
-    if "display_order" in positions:
-        col = positions["display_order"]
-        add_order_validation(ws, f"{col}2:{col}500")
+    for header in ("display_order", "order"):
+        if header in positions:
+            col = positions[header]
+            add_order_validation(ws, f"{col}2:{col}500")
 
     if "year" in positions:
         col = positions["year"]
@@ -555,7 +561,7 @@ def build_instructions(ws) -> None:
         ("News dates", "Enter a real date in month. It is displayed as Sep 2026 and sorted newest first."),
         ("URLs", "Use only public http:// or https:// URLs. Link fields may also use mailto:. Invalid URLs are ignored."),
         ("Images", "Use a direct, publicly accessible image URL. A name-initial placeholder appears when blank or unavailable."),
-        ("Long text", "Use plain text and line breaks. HTML and Markdown are intentionally not rendered."),
+        ("Long text", "Use **text** for bold. ProfessorDetails and ProfessorPublications also support [label](https://url) links. Keep formatting on one line; use line breaks for paragraphs."),
         ("Sample content", "Every populated row is an English example and should be replaced with the lab's verified information."),
     ]
     ws["A14"] = "Rule"

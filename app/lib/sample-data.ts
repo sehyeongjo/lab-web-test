@@ -78,14 +78,6 @@ export const sampleProfessorDetails: ProfessorDetail[] = [
     link_url: "",
   },
   {
-    section: "Selected Publications",
-    display_order: 1,
-    content: "Example Paper: A Clear Title for a Representative Publication",
-    subtext: "Sample Conference, 2026",
-    link_label: "Paper",
-    link_url: "https://example.com",
-  },
-  {
     section: "Reviewer",
     display_order: 1,
     content: "Example conferences and journals",
@@ -229,5 +221,18 @@ export const samplePublications: Publication[] = [
     project_url: "",
     code_url: "",
     video_url: "",
+  },
+];
+
+export const sampleProfessorPublications = [
+  {
+    category: "International Conference",
+    display_order: 1,
+    content: "**Eusun Han** and Sample Collaborators (2026). Example Professor Paper: Replace This with a Publication Title. Sample Conference. [Paper](https://example.com)",
+  },
+  {
+    category: "Journal",
+    display_order: 2,
+    content: "Sample Author, **Eusun Han** (2025). Example Professor Journal Article. Sample Journal. [DOI](https://example.com/journal)",
   },
 ];

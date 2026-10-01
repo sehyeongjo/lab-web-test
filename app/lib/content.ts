@@ -3,6 +3,7 @@ import {
   sampleNews,
   sampleProfessor,
   sampleProfessorDetails,
+  sampleProfessorPublications,
   samplePublications,
   sampleResearch,
   sampleSettings,
@@ -293,6 +294,25 @@ export function normalizePublications(rows: SheetRow[]): Publication[] {
   );
 }
 
+export function normalizeProfessorPublications(rows: SheetRow[]) {
+  const categoryOrder = new Map<string, number>();
+  const publications = visibleRows(rows)
+    .map((row) => ({
+      category: asText(row.category) || "Other",
+      display_order: asOrder(asText(row.order ?? row.display_order) || undefined),
+      content: asText(row.content ?? row.title),
+    }))
+    .filter((item) => item.content);
+
+  for (const publication of publications) {
+    if (!categoryOrder.has(publication.category)) categoryOrder.set(publication.category, categoryOrder.size);
+  }
+  return publications.sort((a, b) =>
+    (categoryOrder.get(a.category) ?? 0) - (categoryOrder.get(b.category) ?? 0) ||
+    a.display_order - b.display_order,
+  );
+}
+
 async function fetchSheet(sheetId: string, tab: string) {
   if (!/^[a-zA-Z0-9_-]+$/.test(sheetId)) throw new Error("Invalid Google Sheet ID");
   const url =
@@ -344,3 +364,5 @@ export const loadAlumni = () => loadTab("Alumni", normalizeAlumni, sampleAlumni)
 export const loadResearch = () => loadTab("Research", normalizeResearch, sampleResearch);
 export const loadPublications = () =>
   loadTab("Publications", normalizePublications, samplePublications);
+export const loadProfessorPublications = () =>
+  loadTab("ProfessorPublications", normalizeProfessorPublications, sampleProfessorPublications);

@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { FallbackImage } from "./fallback-image";
 import type { Settings } from "./lib/types";
+import { formatText } from "./lib/format-text";
 import { MobileNavigation } from "./mobile-navigation";
 
 export type ActivePage = "home" | "members" | "research" | "publications";
@@ -30,7 +31,7 @@ export function Multiline({ text }: { text: string }) {
   return (
     <div className="multiline">
       {text.split(/\r?\n/).filter(Boolean).map((line, index) => (
-        <p key={index}>{line}</p>
+        <p key={index}>{formatText(line)}</p>
       ))}
     </div>
   );
@@ -52,7 +53,7 @@ function Header({ settings, active, memberPage }: {
       <a className="skip-link" href="#main-content">Skip to main content</a>
       <header className="site-header">
         <div className="nav-shell">
-          <Link className="brand" href="/">{settings.lab_name || "Eusun Han's Lab"}</Link>
+          <Link className="brand" href="/">{formatText(settings.lab_name || "Eusun Han's Lab")}</Link>
           <nav className="site-nav" aria-label="Primary navigation">
             <Link className={`nav-link ${active === "home" ? "active" : ""}`} href="/">Home</Link>
             <div className={`member-menu ${active === "members" ? "active" : ""}`}>
@@ -82,14 +83,14 @@ function Footer({ settings }: { settings: Settings }) {
     <footer className="site-footer">
       <div className="container footer-grid">
         <div>
-          <p>{settings.footer_text || settings.lab_name}</p>
-          {settings.affiliation ? <p>{settings.affiliation}</p> : null}
+          <p>{formatText(settings.footer_text || settings.lab_name)}</p>
+          {settings.affiliation ? <p>{formatText(settings.affiliation)}</p> : null}
         </div>
         <div>
           {settings.contact_email ? (
             <p><ExternalLink href={`mailto:${settings.contact_email}`}>{settings.contact_email}</ExternalLink></p>
           ) : null}
-          {settings.address ? <p>{settings.address}</p> : null}
+          {settings.address ? <p>{formatText(settings.address)}</p> : null}
         </div>
       </div>
     </footer>
@@ -104,7 +105,7 @@ export function SiteFrame({ settings, demo, active, memberPage, children }: {
   children: ReactNode;
 }) {
   return (
-    <div className="site-frame">
+    <div className="site-frame" data-page={memberPage || active}>
       <Header settings={settings} active={active} memberPage={memberPage} />
       <div className="site-scroll">
         {demo ? (

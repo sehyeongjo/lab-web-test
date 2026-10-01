@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { loadSettings } from "./lib/content";
+import { plainText } from "./lib/format-text";
 import { ScrollToTop } from "./scroll-to-top";
 import "./globals.css";
 
@@ -19,21 +20,22 @@ export async function generateMetadata(): Promise<Metadata> {
     requestHeaders.get("x-forwarded-proto") ??
     (host.startsWith("localhost") ? "http" : "https");
   const base = new URL(`${protocol}://${host}`);
-  const description = settings.introduction || settings.tagline;
+  const title = plainText(settings.lab_name || "Eusun Han's Lab");
+  const description = plainText(settings.introduction || settings.tagline);
 
   return {
     metadataBase: base,
-    title: settings.lab_name || "Eusun Han's Lab",
+    title,
     description,
     openGraph: {
-      title: settings.lab_name || "Eusun Han's Lab",
+      title,
       description,
       type: "website",
       images: [{ url: "/og.png", width: 1536, height: 1024 }],
     },
     twitter: {
       card: "summary_large_image",
-      title: settings.lab_name || "Eusun Han's Lab",
+      title,
       description,
       images: ["/og.png"],
     },
